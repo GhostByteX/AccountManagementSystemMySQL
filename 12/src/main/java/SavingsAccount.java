@@ -78,6 +78,7 @@ public class SavingsAccount
 	
 	public void withdraw(double amt)
 	{
+		
 		if(Balance>=amt)
 		{
 			Balance=Balance-amt;
@@ -116,9 +117,10 @@ public class SavingsAccount
 		return AccountNumber;
 	}
 	
-	public void setInterest(double ir)
+	public double setInterest(double ir)
 	{
 		InterestRate=ir;
+		return InterestRate;
 	}
 	
 	public SavingsAccount logIn(double AccNum)
