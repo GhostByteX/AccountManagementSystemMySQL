@@ -7,6 +7,7 @@ public class Main {
 	
 	static ArrayList<SavingsAccount> savingsAccountList=new ArrayList<SavingsAccount>();
 	static ArrayList<CheckingAccount> checkingAccountList=new ArrayList<CheckingAccount>();
+	static PersHand obj;
 	public static int generateAccNum()
 	{
 		Random r=new Random();
@@ -41,6 +42,27 @@ public class Main {
 	public static void main(String[] args)
 	{
 		
+		
+		int dboption=0;
+		System.out.println("\n_________________________DB OPTIONS MENU________________________\n\n"
+    			+ "\n1.Store in File\n2.Store using MYSQL\n\n");
+		Scanner KB1=new Scanner(System.in);
+		dboption=KB1.nextInt();
+		while (dboption!=1 && dboption!=2)
+		{
+			System.out.print("\nInvalid Value, Please Try Again\n\n");
+			dboption=KB1.nextInt();
+		}
+		
+		if(dboption==1)
+		{
+			obj=new File();
+		}
+		else
+		{
+			obj=new MySQL();
+		}
+		
 		double IntRate=2.5;
 		@SuppressWarnings("resource")
 		Scanner KB = new Scanner(System.in);
@@ -66,6 +88,7 @@ public class Main {
 	    			+ "\n\n7.EXIT\n\n");
 	    	
 	    	option=KB.nextInt();
+	    	
 	    	switch(option)
 	    	{
 	    	case 1:
@@ -100,11 +123,14 @@ public class Main {
 	    		{
 	    			SavingsAccount SAcc1=new SavingsAccount(AccNum,Name,Address,PhoneNum,Bal,IntRate);
 	    			savingsAccountList.add(SAcc1);
+	    			obj.addaccount(AccNum, Name, Address, AccNum, PhoneNum, subopt);
 	    		}
 	    		else if (subopt==2)
 	    		{
 	    			CheckingAccount CAcc1=new CheckingAccount(AccNum,Name,Address,PhoneNum,Bal);
 	    			checkingAccountList.add(CAcc1);
+	    			obj.addaccount(AccNum, Name, Address, AccNum, PhoneNum, subopt);
+		    		
 	    		}
 	    		
 	    		break;
@@ -126,7 +152,7 @@ public class Main {
 	    		accc=KB.nextInt();
 	    		if(optt==1)
 	    		{
-	    			for (SavingsAccount i : savingsAccountList)
+	    			/*for (SavingsAccount i : savingsAccountList)
 	    			{
 	    				if(i.getAccNum()==accc)
 	    				{
@@ -134,13 +160,15 @@ public class Main {
 	    					System.out.println("\nACCOUNT CLOSED\n");
 	    					break;
 	    				}
-	    			}
+	    			}*/
+	    			obj.delaccount(accc,optt);
+					break;
 	    		}
 	    		
 	    		
 	    		else if (optt==2)
 	    		{
-	    			for (CheckingAccount i : checkingAccountList)
+	    			/*for (CheckingAccount i : checkingAccountList)
 	    			{
 	    				if(i.getAccNum()==accc)
 	    				{
@@ -149,6 +177,10 @@ public class Main {
 	    					break;
 	    				}
 	    			}
+	    			*/
+	    			obj.delaccount(accc,optt);
+					break;
+	    			
 	    		}
 	    		break;
 	    		
@@ -188,6 +220,7 @@ public class Main {
 	    				if(i.getAccNum()==acc)
 	    					temp1=i;
 	    			}
+	    			
 	    			//CheckingAccount temp2=new CheckingAccount();
 	    			//temp1=temp2.logIn(acc);
 	    		}
@@ -352,7 +385,7 @@ public class Main {
 	    		
 	    	case 5:
 	    		
-	    		System.out.println("\n\n CHECKING ACCOUNTS\n\n");
+	    	/*	System.out.println("\n\n CHECKING ACCOUNTS\n\n");
 	    		for (CheckingAccount i : checkingAccountList)
 	    		{
 	    			i.printStatement();
@@ -364,7 +397,16 @@ public class Main {
     				i.printStatement();
     			}
 	    		break;
+	    		*/
 	    		
+	    		
+	    		try {
+					obj.displayall();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		break;
 	    	case 6:
 	    		System.out.println("\nNot Implemented \n\n");
 	    		break;

@@ -20,7 +20,7 @@ public class TestClass {
 		temp=s.setInterest(2.5);
 		assertNotEquals(temp,3.5,0.1);
 	}
-	
+	 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void DepositTest() {
